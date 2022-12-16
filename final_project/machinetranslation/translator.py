@@ -1,10 +1,9 @@
 """
 AI Powered English/French Translator
 """
-import json
+import os
 from ibm_watson import LanguageTranslatorV3
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-import os
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -24,9 +23,9 @@ def english_to_french(en_text):
     if isinstance(en_text, str) and en_text:
         translation = translator.translate(text=en_text, model_id='en-fr').get_result()
         fr_text = translation.get('translations')[0].get('translation')
-        return fr_text
     else:
-        return en_text
+        fr_text = en_text
+    return fr_text
 
 
 def french_to_english(fr_text):
@@ -36,6 +35,6 @@ def french_to_english(fr_text):
     if isinstance(fr_text, str) and fr_text:
         translation = translator.translate(text=fr_text, model_id='fr-en').get_result()
         en_text = translation.get('translations')[0].get('translation')
-        return en_text
     else:
-        return fr_text
+        en_text = fr_text
+    return en_text
